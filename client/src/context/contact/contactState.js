@@ -19,7 +19,27 @@ import contactContext from './contactContext';
 const ContactState = props => {
 	const initialState = {
 		contacts: [
-			{ id: 1, email: 'dennis@densi.ch', phone: '0124565432', type: 'personal' }
+			{
+				id: 1,
+				name: 'asdf asdfasdf',
+				email: 'dennis@densi.ch',
+				phone: '0124565432',
+				type: 'personal'
+			},
+			{
+				id: 2,
+				name: 'jklö asdfasdf',
+				email: 'denni2s@densi.ch',
+				phone: '98765432',
+				type: 'personal'
+			},
+			{
+				id: 3,
+				name: 'tage asdfasdf',
+				email: 'denni3s@densi.ch',
+				phone: '13456543454345',
+				type: 'professional'
+			}
 		]
 	};
 
