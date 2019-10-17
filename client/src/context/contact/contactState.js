@@ -3,52 +3,100 @@ import uuid from 'uuid';
 import ContactContext from './contactContext';
 import contactReducer from './contactReducer';
 import {
-	GET_CONTACTS,
-	ADD_CONTACT,
-	DELETE_CONTACT,
-	SET_CURRENT,
-	CLEAR_CURRENT,
-	UPDATE_CONTACT,
-	FILTER_CONTACTS,
-	CLEAR_CONTACTS,
-	CLEAR_FILTER,
-	CONTACT_ERROR
+  ADD_CONTACT,
+  DELETE_CONTACT,
+  SET_CURRENT,
+  CLEAR_CURRENT,
+  UPDATE_CONTACT,
+  FILTER_CONTACTS,
+  CLEAR_FILTER
 } from '../types';
-import contactContext from './contactContext';
 
 const ContactState = props => {
-	const initialState = {
-		contacts: [
-			{
-				id: 1,
-				name: 'asdf asdfasdf',
-				email: 'dennis@densi.ch',
-				phone: '0124565432',
-				type: 'personal'
-			},
-			{
-				id: 2,
-				name: 'jklö asdfasdf',
-				email: 'denni2s@densi.ch',
-				phone: '98765432',
-				type: 'personal'
-			},
-			{
-				id: 3,
-				name: 'tage asdfasdf',
-				email: 'denni3s@densi.ch',
-				phone: '13456543454345',
-				type: 'professional'
-			}
-		]
-	};
+  const initialState = {
+    contacts: [
+      {
+        id: 1,
+        name: 'Jill Johnson',
+        email: 'jill@gmail.com',
+        phone: '111-111-1111',
+        type: 'personal'
+      },
+      {
+        id: 2,
+        name: 'Sara Watson',
+        email: 'sara@gmail.com',
+        phone: '222-222-2222',
+        type: 'personal'
+      },
+      {
+        id: 3,
+        name: 'Harry White',
+        email: 'harry@gmail.com',
+        phone: '333-333-333',
+        type: 'professional'
+      }
+    ],
+    current: null,
+    filtered: null
+  };
 
-	const [state, dispatch] = useReducer(contactReducer, initialState);
-	return (
-		<ContactContext.Provider value={{ contacts: state.contacts }}>
-			{props.children}
-		</ContactContext.Provider>
-	);
+  const [state, dispatch] = useReducer(contactReducer, initialState);
+
+  // Add Contact
+  const addContact = contact => {
+    contact.id = uuid.v4();
+    dispatch({ type: ADD_CONTACT, payload: contact });
+  };
+
+  // Delete Contact
+  const deleteContact = id => {
+    dispatch({ type: DELETE_CONTACT, payload: id });
+  };
+
+  // Set Current Contact
+  const setCurrent = contact => {
+    dispatch({ type: SET_CURRENT, payload: contact });
+  };
+
+  // Clear Current Contact
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
+
+  // Update Contact
+  const updateContact = contact => {
+    dispatch({ type: UPDATE_CONTACT, payload: contact });
+  };
+
+  // Filter Contacts
+  const filterContacts = text => {
+    dispatch({ type: FILTER_CONTACTS, payload: text });
+  };
+
+  // Clear Filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
+
+  return (
+    <ContactContext.Provider
+      value={{
+        contacts: state.contacts,
+        current: state.current,
+        filtered: state.filtered,
+        addContact,
+        deleteContact,
+        setCurrent,
+        clearCurrent,
+        updateContact,
+        filterContacts,
+        clearFilter
+      }}
+    >
+      {props.children}
+    </ContactContext.Provider>
+  );
 };
 
 export default ContactState;

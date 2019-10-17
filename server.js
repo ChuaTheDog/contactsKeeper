@@ -3,21 +3,22 @@ const connectDB = require('./config/db');
 
 const app = express();
 
-//connect Database
+// Connect Database
 connectDB();
 
-//init middleware
+// Init Middleware
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) =>
-	res.json({ msg: 'welcome to the contact keeper api' })
+	res.json({ msg: 'Welcome to the ContactKeeper API...' })
 );
 
-//Define the routs
-
+// Define Routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/contacts', require('./routes/contacts'));
+app.use('/api/test', require('./routes/test'));
 
-const PORT = process.env.port || 5000;
-app.listen(PORT, () => console.log(`server starter on ${PORT}`));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

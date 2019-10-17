@@ -6,7 +6,7 @@ const Navbar = ({ title, icon }) => {
 	return (
 		<div className='navbar bg-primary'>
 			<h1>
-				<i className={icon}></i> {title}
+				<i className={icon} /> {title}
 			</h1>
 			<ul>
 				<li>
@@ -14,6 +14,12 @@ const Navbar = ({ title, icon }) => {
 				</li>
 				<li>
 					<Link to='/about'>About</Link>
+				</li>
+				<li>
+					<Link to='/register'>Register</Link>
+				</li>
+				<li>
+					<Link to='/login'>Login</Link>
 				</li>
 			</ul>
 		</div>
@@ -26,7 +32,7 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-	title: 'contact keeper',
+	title: 'Contact Keeper',
 	icon: 'fas fa-id-card-alt'
 };
 

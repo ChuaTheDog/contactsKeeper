@@ -2,36 +2,19 @@ const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
 
-mongoose.Promise = Promise;
-
-mongoose.connection.on('connected', () => {
-	console.log('Connection Established');
-});
-
-mongoose.connection.on('reconnected', () => {
-	console.log('Connection Reestablished');
-});
-
-mongoose.connection.on('disconnected', () => {
-	console.log('Connection Disconnected');
-});
-
-mongoose.connection.on('close', () => {
-	console.log('Connection Closed');
-});
-
-mongoose.connection.on('error', error => {
-	console.log('ERROR: ' + error);
-});
-
 const connectDB = async () => {
-	await mongoose.connect(db, {
-		useNewUrlParser: true,
-		useCreateIndex: true,
-		useUnifiedTopology: false
-	});
-};
+  try {
+    await mongoose.connect(db, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    });
 
-connectDB().catch(error => console.error(error));
+    console.log('MongoDB Connected...');
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+};
 
 module.exports = connectDB;
